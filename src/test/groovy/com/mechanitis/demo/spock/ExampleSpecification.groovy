@@ -117,4 +117,19 @@ class ExampleSpecification extends Specification {
                 renderer == renderer
             }
     }
+
+    def "should demonstrate 'verifyAll'"() {
+        given:
+            def renderer = Mock(Renderer)
+            def shapeFactory = new ShapeFactory(renderer)
+
+        when:
+            def polygon = shapeFactory.createDefaultPolygon()
+
+        then:
+            verifyAll(polygon) {
+                numberOfSides == 5
+                renderer == null
+            }
+    }
 }
