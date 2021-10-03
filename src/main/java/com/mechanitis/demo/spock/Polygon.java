@@ -4,7 +4,10 @@ public class Polygon {
 
     public final int numberOfSides;
 
-    public Polygon(int numberOfSides) {
+    Polygon(int numberOfSides) {
+        if (numberOfSides <= 2) {
+            throw new TooFewSidesException("The shape must have more than 2 sides", numberOfSides);
+        }
         this.numberOfSides = numberOfSides;
     }
 
