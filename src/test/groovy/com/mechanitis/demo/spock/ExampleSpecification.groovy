@@ -1,6 +1,7 @@
 package com.mechanitis.demo.spock
 
 import spock.lang.Specification
+import spock.lang.Subject
 
 class ExampleSpecification extends Specification {
 
@@ -59,5 +60,18 @@ class ExampleSpecification extends Specification {
             1 | 3 || 3
             7 | 4 || 7
             0 | 0 || 0
+    }
+
+    def "should be able to mock a concrete class"() {
+        given:
+            def renderer = Mock(Renderer)
+            @Subject
+            def polygon = new Polygon(4, renderer)
+
+        when:
+            polygon.draw()
+
+        then:
+            4 * renderer.drawLine()
     }
 }
