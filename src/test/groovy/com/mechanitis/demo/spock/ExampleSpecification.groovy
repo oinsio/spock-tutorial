@@ -85,4 +85,21 @@ class ExampleSpecification extends Specification {
         expect:
             renderer.getForegroundColor() == Color.Red
     }
+
+    def "should use a helper method"() {
+        given:
+            def renderer = Mock(Renderer)
+            def shapeFactory = new ShapeFactory(renderer)
+
+        when:
+            def polygon = shapeFactory.createDefaultPolygon()
+
+        then:
+            checkDefaultShape(polygon, renderer)
+    }
+
+    private static void checkDefaultShape(polygon, Renderer renderer) {
+        assert polygon.numberOfSides == 4
+        assert polygon.renderer == renderer
+    }
 }
