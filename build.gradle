@@ -9,6 +9,12 @@ repositories {
 dependencies {
     testImplementation 'org.codehaus.groovy:groovy-all:3.0.8'
     testImplementation 'org.spockframework:spock-core:2.0-groovy-3.0'
+
+    testImplementation "org.testcontainers:spock:1.16.3"
+    testImplementation 'org.testcontainers:localstack:1.17.1'
+
+    implementation "io.lettuce:lettuce-core:5.2.0.RELEASE"
+    testImplementation 'ch.qos.logback:logback-classic:1.2.3'
 }
 
 test {
