@@ -9,7 +9,7 @@ import spock.lang.Specification
 abstract class LocalstackSpecification extends Specification {
 
     @Shared
-    def dockerImageName = "localstack/localstack:0.12.16"
+    def dockerImageName = "localstack/localstack:0.14.2"
     @Shared
     def localstackImage = DockerImageName.parse(dockerImageName)
 

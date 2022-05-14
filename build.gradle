@@ -23,6 +23,10 @@ dependencies {
     // AWS SDK v2
     implementation platform('software.amazon.awssdk:bom:2.15.0')
     implementation 'software.amazon.awssdk:s3'
+
+    // DynamoDB
+    implementation 'com.amazonaws:aws-java-sdk-dynamodb:1.12.218'
+
 }
 
 test {
