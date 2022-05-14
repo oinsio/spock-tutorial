@@ -2,25 +2,17 @@ package com.mechanitis.demo.spock
 
 import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.AmazonS3ClientBuilder
-import org.testcontainers.spock.Testcontainers
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider
 import software.amazon.awssdk.core.sync.RequestBody
 import software.amazon.awssdk.regions.Region
 import static org.testcontainers.containers.localstack.LocalStackContainer.Service.S3
 import org.testcontainers.containers.localstack.LocalStackContainer
-import org.testcontainers.utility.DockerImageName
 import spock.lang.Shared
-import spock.lang.Specification
 import software.amazon.awssdk.services.s3.S3Client
 
-@Testcontainers
-class S3LocalstackTest extends Specification {
+class S3LocalstackTest extends LocalstackSpecification {
 
-    @Shared
-    def dockerImageName = "localstack/localstack:0.12.16"
-    @Shared
-    def localstackImage = DockerImageName.parse(dockerImageName)
     @Shared
     LocalStackContainer localstackS3 = new LocalStackContainer(localstackImage).withServices(S3)
 
