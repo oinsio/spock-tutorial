@@ -1,6 +1,8 @@
 package com.mechanitis.demo.spock
 
 import spock.lang.Shared
+import com.amazonaws.services.dynamodbv2.model.AttributeValue
+import com.amazonaws.services.dynamodbv2.model.PutItemRequest
 import com.amazonaws.services.dynamodbv2.document.DynamoDB
 import com.amazonaws.services.dynamodbv2.model.AttributeDefinition
 import com.amazonaws.services.dynamodbv2.model.KeySchemaElement
@@ -22,7 +24,9 @@ class DynamoDbLocalstackTest extends LocalstackSpecification {
     DynamoDB dynamoDB
 
     @Shared
-    def tableName = "table_for_tests"
+    def tableName = "Users"
+    @Shared
+    def id = 1
 
     def setupSpec() {
 
@@ -34,6 +38,7 @@ class DynamoDbLocalstackTest extends LocalstackSpecification {
 
         dynamoDB = new DynamoDB(dynamoDbClient)
 
+        // Create Table Users
         def attributeDefinitions = new ArrayList<AttributeDefinition>()
         attributeDefinitions.add(new AttributeDefinition()
             .withAttributeName("Id")
@@ -54,11 +59,32 @@ class DynamoDbLocalstackTest extends LocalstackSpecification {
 
         def table = dynamoDB.createTable(request)
         table.waitForActive()
+
+        // Insert Item into Table Users
+        def attributeValues = new HashMap<String, AttributeValue>()
+        attributeValues.put("Id", new AttributeValue().withN(id.toString()))
+        attributeValues.put("Email", new AttributeValue().withS("foo@bar.com"))
+        attributeValues.put("FullName", new AttributeValue().withS("Foo Bar"))
+
+        PutItemRequest putItemRequest = new PutItemRequest()
+            .withTableName(tableName)
+            .withItem(attributeValues)
+        dynamoDbClient.putItem(putItemRequest)
     }
 
-    def "should access table_for_tests"() {
+    def "should access table Users"() {
 
         expect:
-            dynamoDB.getTable(tableName).describe().getTableName() == "table_for_tests"
+            dynamoDB.getTable(tableName).describe().getTableName() == "Users"
+    }
+
+    def "should read inserted User from DynamoDB"() {
+
+        when:
+            def user = dynamoDB.getTable(tableName).getItem("Id", id)
+        then:
+            user.get("Id") == 1
+            user.get("Email") == "foo@bar.com"
+            user.get("FullName") == "Foo Bar"
     }
 }
