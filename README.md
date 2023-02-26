@@ -17,3 +17,9 @@ https://spockframework.org/spock/docs/2.0/all_in_one.html
 # Localstack
 
 [S3 Localstack](https://github.com/testcontainers/testcontainers-java/blob/master/docs/modules/localstack.md)
+
+# Mockserver
+
+[Mockserver](https://www.mock-server.com/)
+
+[Mockserver module](https://www.testcontainers.org/modules/mockserver/)

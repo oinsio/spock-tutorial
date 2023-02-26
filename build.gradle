@@ -7,6 +7,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.projectlombok:lombok:1.18.20'
     testImplementation 'org.codehaus.groovy:groovy-all:3.0.8'
     testImplementation 'org.spockframework:spock-core:2.0-groovy-3.0'
 
@@ -26,6 +27,10 @@ dependencies {
 
     // DynamoDB
     implementation 'com.amazonaws:aws-java-sdk-dynamodb:1.12.218'
+
+    // MockServer
+    testImplementation 'org.testcontainers:mockserver:1.17.6'
+    implementation 'org.mock-server:mockserver-client-java:5.15.0'
 
 }
 
