@@ -1,5 +1,14 @@
 plugins {
+    id 'java'
     id 'groovy'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 repositories {
@@ -7,29 +16,37 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.projectlombok:lombok:1.18.20'
-    testImplementation 'org.codehaus.groovy:groovy-all:3.0.8'
-    testImplementation 'org.spockframework:spock-core:2.0-groovy-3.0'
 
-    testImplementation 'org.testcontainers:spock:1.16.3'
-    testImplementation 'org.testcontainers:localstack:1.17.1'
+    // Spock Framework
+    testImplementation 'org.spockframework:spock-core:2.3-groovy-4.0'
+    testImplementation 'org.apache.groovy:groovy-all:4.0.23'
 
-    implementation 'io.lettuce:lettuce-core:5.2.0.RELEASE'
-    testImplementation 'ch.qos.logback:logback-classic:1.2.3'
+    // Additional test dependencies
+    testImplementation 'org.mockito:mockito-core:5.14.2'
+    testImplementation 'org.testcontainers:localstack:1.20.3'
+    testImplementation 'org.testcontainers:spock:1.20.3'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-    // AWS SDK v1
-    implementation platform('com.amazonaws:aws-java-sdk-bom:1.11.1000')
-    implementation 'com.amazonaws:aws-java-sdk-s3'
+    // Logging
+    implementation 'org.slf4j:slf4j-api:2.0.13'
+    implementation 'ch.qos.logback:logback-classic:1.5.6'
+    implementation 'net.logstash.logback:logstash-logback-encoder:7.4'
+
+    // Lombok
+    implementation 'org.projectlombok:lombok:1.18.42'
+
+    // Redis client
+    implementation 'io.lettuce:lettuce-core:v7.0.0.BETA1'
 
     // AWS SDK v2
-    implementation platform('software.amazon.awssdk:bom:2.15.0')
+    implementation platform('software.amazon.awssdk:bom:2.33.13')
     implementation 'software.amazon.awssdk:s3'
 
     // DynamoDB
-    implementation 'com.amazonaws:aws-java-sdk-dynamodb:1.12.218'
+    implementation 'com.amazonaws:aws-java-sdk-dynamodb:1.12.791'
 
     // MockServer
-    testImplementation 'org.testcontainers:mockserver:1.17.6'
+    testImplementation 'org.testcontainers:mockserver:1.21.3'
     implementation 'org.mock-server:mockserver-client-java:5.15.0'
 
 }

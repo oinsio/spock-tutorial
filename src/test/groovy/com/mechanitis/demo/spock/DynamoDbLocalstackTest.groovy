@@ -1,6 +1,8 @@
 package com.mechanitis.demo.spock
 
 import spock.lang.Shared
+import com.amazonaws.client.builder.AwsClientBuilder
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain
 import com.amazonaws.services.dynamodbv2.model.AttributeValue
 import com.amazonaws.services.dynamodbv2.model.PutItemRequest
 import com.amazonaws.services.dynamodbv2.document.DynamoDB
@@ -30,10 +32,15 @@ class DynamoDbLocalstackTest extends LocalstackSpecification {
 
     def setupSpec() {
 
+        def endpoint = new AwsClientBuilder.EndpointConfiguration(
+                localstack.getEndpointOverride(DYNAMODB).toString(),
+                localstack.getRegion()
+        )
+
         dynamoDbClient = AmazonDynamoDBClientBuilder
             .standard()
-            .withEndpointConfiguration(localstack.getEndpointConfiguration(DYNAMODB))
-            .withCredentials(localstack.getDefaultCredentialsProvider())
+            .withEndpointConfiguration(endpoint)
+            .withCredentials(new DefaultAWSCredentialsProviderChain())
             .build()
 
         dynamoDB = new DynamoDB(dynamoDbClient)
