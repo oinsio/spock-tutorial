@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'groovy'
+    id 'jacoco'
 }
 
 java {
@@ -53,4 +54,9 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
 }
