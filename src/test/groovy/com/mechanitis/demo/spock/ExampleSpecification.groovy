@@ -93,8 +93,7 @@ class ExampleSpecification extends Specification {
 
     def "should be able to create a stub"() {
         given: "a palette with red as the primary color"
-            def palette = Stub(Palette)
-            palette.getPrimaryColor() >> Color.Red
+            def palette = new Palette(Color.Red)
 
         and: "a render initialised with the red palette"
             @Subject

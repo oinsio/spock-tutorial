@@ -15,6 +15,6 @@ public class Renderer {
 
     public Color getForegroundColor() {
 
-        return palette.getPrimaryColor();
+        return palette.primaryColor();
     }
 }
