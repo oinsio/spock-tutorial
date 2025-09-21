@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'groovy'
     id 'jacoco'
+    id 'info.solidsoft.pitest' version '1.19.0-rc.1'
 }
 
 java {
@@ -50,13 +51,24 @@ dependencies {
     testImplementation 'org.testcontainers:mockserver:1.21.3'
     implementation 'org.mock-server:mockserver-client-java:5.15.0'
 
+    // PITest with JUnit 5 support
+    pitest 'org.pitest:pitest-junit5-plugin:1.2.3'
 }
 
 test {
     useJUnitPlatform()
     finalizedBy jacocoTestReport
+    finalizedBy 'pitest'
 }
 
 jacocoTestReport {
     dependsOn test
+}
+
+pitest {
+    testPlugin = 'junit5'
+    junit5PluginVersion = '1.0.0'
+    targetClasses = ['com.mechanitis.*']
+    threads = 4
+    timestampedReports = false
 }
