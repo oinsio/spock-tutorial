@@ -1,6 +1,7 @@
 package com.example.async;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 public class AsyncService {
 
@@ -8,7 +9,7 @@ public class AsyncService {
 
         return CompletableFuture.runAsync(() -> {
            try {
-               Thread.sleep(500);
+               TimeUnit.MILLISECONDS.sleep(500);
            } catch (InterruptedException e) {
                Thread.currentThread().interrupt();
            }
