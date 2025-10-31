@@ -1,8 +1,5 @@
 package com.example;
 
-import java.util.LinkedList;
-import java.util.List;
-
 /**
  * Your MinStack object will be instantiated and called as such:
  * MinStack obj = new MinStack();
@@ -29,31 +26,36 @@ class MinStack {
     Methods pop, top and getMin operations will always be called on non-empty stacks.
     At most 3 * 104 calls will be made to push, pop, top, and getMin.
      */
-
-    private final List<Integer> stack;
-    private final List<Integer> minStack;
+    Node head;
 
     public MinStack() {
-        stack = new LinkedList<>();
-        minStack = new LinkedList<>();
     }
 
     public void push(int val) {
-        stack.addFirst(val);
-        if (minStack.isEmpty() || minStack.getFirst() >= val) minStack.addFirst(val);
+        head = (head == null) ? new Node(val, val, null) : new Node(val, Math.min(val, head.minValue), head);
     }
 
     public void pop() {
-        if (minStack.getFirst().equals(stack.removeFirst())) minStack.removeFirst();
+        head = head.prevNode;
     }
 
     public int top() {
-        return stack.getFirst();
+        return head.value;
     }
 
     public int getMin() {
-        return minStack.getFirst();
+        return head.minValue;
     }
 }
 
+class Node {
+    int value;
+    int minValue;
+    Node prevNode;
 
+    public Node(int value, int min, Node next) {
+        this.value = value;
+        this.minValue = min;
+        this.prevNode = next;
+    }
+}
