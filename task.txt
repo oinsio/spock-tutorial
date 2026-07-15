@@ -1,0 +1,19 @@
+Given a string, write a Java method to find the index of the first non-recurring (non-repeating) character.
+If all characters in the string are recurring, return `-1`.
+
+Input: “john”
+Output:`0` (The first non-recurring character is ’j’ at index `0`.)
+
+Input: ”higher”
+Output: `1` (The first non-recurring character is ’i’ at index `1`.)
+
+Input: ”stethoscope”
+Output: `4` (The first non-recurring character is ’h’ at index `4`.)
+
+Input: "aabbcc"
+Output:`-1` (All characters are recurring.)
+
+
+Constraints:
+- string can contain lowercase and uppercase letters. (a == A)
+- The string can be empty.

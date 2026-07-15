@@ -21,8 +21,20 @@ class ExampleSpecification extends Specification {
     }
 
     def "should be a simple assertion"() {
+        given:
+            Example example = new Example();
+
         expect:
-            1 == 1
+        example.returnIndexOfNorRepeatingCharacter(input) == output
+
+
+        where:
+            input         | output
+            "john"        | 1
+            "stethoscope" | 4
+            "aabbcc"      | -1
+            "sTethoscope" | 4
+            ""            | -1
     }
 
 }
